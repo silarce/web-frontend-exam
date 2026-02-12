@@ -8,8 +8,7 @@
 
 1. 語言：Javascript
 2. Framework：
-   1. 必備：React.js 或 Vue.js 其一
-   2. 使用 React.js 或 Next.js 完成，將列為加分項目
+   1. 建議使用 React.js / Next.js，使用 Vue.js 亦可接受
 
 ### CSS
 
@@ -17,6 +16,7 @@
 
 1. [Material UI](https://mui.com/material-ui/)
 2. [Sass](https://sass-lang.com/)
+3. [Tailwindcss](https://tailwindcss.com/)
 
 ### Coding Style
 
@@ -104,7 +104,7 @@
   },
   {
      "id": "6", "label": "博士"
-  },
+  }
 ]
 ```
 
@@ -125,7 +125,7 @@
     "id": "2", "label": "月薪 40,000 ~ 60,000 元"
   },
   {
-    "id": "3", "label": "月薪 70,000 ~ 10,000 元"
+    "id": "3", "label": "月薪 70,000 ~ 100,000 元"
   },
   {
     "id": "4", "label": "年薪 800,000 ~ 1,000,000 元"
