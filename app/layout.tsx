@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import { Noto_Sans_TC } from 'next/font/google';
 import './globals.css';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
+
+import MuiThemeProvider from './muiThemeProvider';
 
 import Providers from './providers';
 
@@ -22,9 +25,13 @@ export default function RootLayout({
   return (
     <html lang="zh-tw" suppressHydrationWarning>
       <body className={`bg-bg ${notoSansTC.className} antialiased`}>
-        <Providers>
-          {children}
-        </Providers>
+        <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+          <MuiThemeProvider>
+            <Providers>
+              {children}
+            </Providers>
+          </MuiThemeProvider>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );
