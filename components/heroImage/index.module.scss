@@ -41,9 +41,9 @@
 
 .manContainer {
   position: relative;
+  height: 100%;
   aspect-ratio: 317 / 238;
 
-  height: 100%;
   @include bp.md {
     aspect-ratio: 1097 / 823;
   }
@@ -53,12 +53,16 @@
     position: absolute;
     top: 0;
     left: 0;
+    width: auto;
+    height: 100%;
   }
   .manShadow {
     z-index: 0;
     position: absolute;
     top: 0;
     left: 0;
+    width: auto;
+    height: 100%;
   }
 
   .leftEye {
