@@ -1,13 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --color-bg-01: rgb(255, 255, 255);
+  --color-bg-01: linear-gradient(90.51deg, #868686 1.54%, #5c5c5c 101.46%);
   --color-text-01: var(--color-gray-1000);
   --color-text-02: var(--color-gray-800);
   --color-text-03: var(--color-orange-700);
   --color-btn-01: var(--color-gray-700);
 }
 
+:root,
 [data-theme="light"] {
   --color-theme-bg: var(--color-bg-01);
   --color-theme-title: var(--color-text-01);
@@ -18,7 +19,7 @@
 }
 
 @theme inline {
-  --color-theme-bg: var(--color-theme-bg);
+  --background-image-theme-bg: var(--color-theme-bg);
   --color-theme-title: var(--color-theme-title);
   --color-theme-subTitle: var(--color-theme-subTitle);
   --color-theme-desc: var(--color-theme-desc);

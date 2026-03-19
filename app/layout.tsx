@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Noto_Sans_TC } from 'next/font/google';
 import './globals.css';
+import clsx from 'clsx';
+
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 
 import MuiThemeProvider from './muiThemeProvider';
@@ -23,8 +25,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-tw" suppressHydrationWarning>
-      <body className={`bg-bg ${notoSansTC.className} antialiased`}>
+    <html
+      lang="zh-tw"
+      data-theme="light"
+      suppressHydrationWarning
+    >
+      <body className={clsx('bg-theme-bg antialiased', notoSansTC.className)}>
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <MuiThemeProvider>
             <Providers>
