@@ -1,6 +1,12 @@
 @import "tailwindcss";
 
 :root {
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
   --color-bg-01: linear-gradient(90.51deg, #868686 1.54%, #5c5c5c 101.46%);
   --color-text-01: var(--color-gray-1000);
   --color-text-02: var(--color-gray-800);
