@@ -12,7 +12,7 @@ import heroBg from '@/public/image/heroBg.png';
 
 import scss from './index.module.scss';
 
-const MAX_RADIUS = 10;
+const MAX_RADIUS = 7;
 
 /**
  * 計算圓形位移後的座標
