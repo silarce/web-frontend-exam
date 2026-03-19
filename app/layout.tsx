@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Noto_Sans_TC } from 'next/font/google';
-import './globals.css';
+import '../css/globals.css';
 import clsx from 'clsx';
 
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
