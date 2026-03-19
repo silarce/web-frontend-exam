@@ -5,10 +5,9 @@ import { useRef } from 'react';
 import Image from 'next/image';
 import man from '@/public/image/man.png';
 import manShadow from '@/public/image/manShadow.png';
-// import heeloo from '@/public/image/heeloo.png';
+import heeloo from '@/public/image/heeloo.png';
 import leftEye from '@/public/image/leftEye.png';
 import rightEye from '@/public/image/rightEye.png';
-// import heroBg from '@/public/image/heroBg.png';
 
 import calcVectorCoordinate from '@/utils/calcCoordinate';
 import calcEleVector from '@/utils/calcEleVector';
@@ -34,7 +33,11 @@ export default function HeroImage() {
     const scaledMaxRadius = MAX_RADIUS * (heroImageWidth / standardWidth);
 
     [refLeftEye, refRightEye].forEach((refEye) => {
-      const eyeEle = refEye.current!;
+      if (!refEye.current) {
+        return;
+      }
+
+      const eyeEle = refEye.current;
 
       const { vectorX, vectorY } = calcEleVector({
         mouseX,
@@ -55,20 +58,14 @@ export default function HeroImage() {
   };
 
   const handleMouseMove = (e:React.MouseEvent) => {
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
-    moveEyes({ mouseX, mouseY });
+    moveEyes({ mouseX: e.clientX, mouseY: e.clientY });
   };
 
   const handleTouchMove = (e:React.TouchEvent) => {
     const touch = e.touches[0];
-    if (!touch) {
-      return;
+    if (touch) {
+      moveEyes({ mouseX: touch.clientX, mouseY: touch.clientY });
     }
-
-    const mouseX = touch.clientX;
-    const mouseY = touch.clientY;
-    moveEyes({ mouseX, mouseY });
   };
 
   const resetEyes = () => {
@@ -89,6 +86,7 @@ export default function HeroImage() {
       onTouchMove={handleTouchMove}
       onTouchEnd={resetEyes}
     >
+      <Image className={scss.heeloo} src={heeloo} alt="heeloo" />
       <div className={scss.manContainer}>
         <Image className={scss.manShadow} src={manShadow} alt="manShadow" />
         <Image className={scss.man} src={man} alt="man" />
@@ -101,10 +99,9 @@ export default function HeroImage() {
         <Image
           className={scss.rightEye}
           src={rightEye}
-          alt="leftEye"
+          alt="rightEye"
           ref={refRightEye}
         />
-
       </div>
     </div>
   );

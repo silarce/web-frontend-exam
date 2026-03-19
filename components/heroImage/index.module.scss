@@ -1,16 +1,36 @@
+@keyframes pulse {
+  0% {
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(0.9);
+  }
+}
+
 .heroImage {
+  position: relative;
   background: url("/image/heroBg.jpg");
   background-size: auto 100%;
-  // background-position: center;
-  background-position: contain;
+  background-position: center;
 
   width: 100%;
   aspect-ratio: 1440 / 823;
+
+  .heeloo {
+    position: absolute;
+    top: 40%;
+    left: 57%;
+    width: 38%;
+
+    animation: pulse 1.5s ease-in-out infinite;
+  }
 }
 
 .manContainer {
   position: relative;
-
   aspect-ratio: 1097 / 823;
   height: 100%;
   .man {
