@@ -44,10 +44,15 @@ function clampToRadius({ vectorX, vectorY, max }:{
   return { x, y };
 }
 
-const calcCoordinate = ({ e, eyeEle }: { e: React.MouseEvent, eyeEle: HTMLImageElement, }) => {
-  const mouseX = e.clientX;
-  const mouseY = e.clientY;
-
+const calcCoordinate = ({
+  mouseX,
+  mouseY,
+  eyeEle,
+}: {
+  mouseX:number,
+  mouseY:number,
+  eyeEle: HTMLImageElement,
+}) => {
   const {
     left, width, top, height,
   } = eyeEle.getBoundingClientRect();
@@ -74,18 +79,44 @@ export default function HeroImage() {
   const refLeftEye = useRef<HTMLImageElement>(null);
   const refRightEye = useRef<HTMLImageElement>(null);
 
-  const handleMouseMove = (e:React.MouseEvent) => {
+  const moveEyes = ({ mouseX, mouseY }: { mouseX:number; mouseY:number }) => {
     if (!refLeftEye.current || !refRightEye.current) {
       return;
     }
-    const { x: leftX, y: leftY } = calcCoordinate({ e, eyeEle: refLeftEye.current });
+
+    const { x: leftX, y: leftY } = calcCoordinate({
+      mouseX,
+      mouseY,
+      eyeEle: refLeftEye.current,
+    });
     refLeftEye.current.style.transform = `translate(${leftX}px, ${leftY}px)`;
 
-    const { x: rightX, y: rightY } = calcCoordinate({ e, eyeEle: refRightEye.current });
+    const { x: rightX, y: rightY } = calcCoordinate({
+      mouseX,
+      mouseY,
+      eyeEle: refRightEye.current,
+    });
     refRightEye.current.style.transform = `translate(${rightX}px, ${rightY}px)`;
   };
 
-  const handleMouseLeave = () => {
+  const handleMouseMove = (e:React.MouseEvent) => {
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+    moveEyes({ mouseX, mouseY });
+  };
+
+  const handleTouchMove = (e:React.TouchEvent) => {
+    const touch = e.touches[0];
+    if (!touch) {
+      return;
+    }
+
+    const mouseX = touch.clientX;
+    const mouseY = touch.clientY;
+    moveEyes({ mouseX, mouseY });
+  };
+
+  const resetEyes = () => {
     if (refLeftEye.current) {
       refLeftEye.current.style.transform = 'unset';
     }
@@ -98,7 +129,9 @@ export default function HeroImage() {
     <div
       className={scss.heroImage}
       onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+      onMouseLeave={resetEyes}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={resetEyes}
     >
       <div className={scss.manContainer}>
         <Image className={scss.manShadow} src={manShadow} alt="manShadow" />
@@ -115,20 +148,8 @@ export default function HeroImage() {
           alt="leftEye"
           ref={refRightEye}
         />
-        {/* <LeftEye />
-        <RightEye /> */}
+
       </div>
     </div>
   );
 }
-
-// function LeftEye() {
-//   return (
-//     <Image className={scss.leftEye} src={leftEye} alt="leftEye" />
-//   );
-// }
-// function RightEye() {
-//   return (
-//     <Image className={scss.rightEye} src={rightEye} alt="leftEye" />
-//   );
-// }
