@@ -1,3 +1,5 @@
+@use "@/css/breakpoints" as bp;
+
 @keyframes pulse {
   0% {
     transform: scale(0.9);
@@ -14,24 +16,38 @@
   position: relative;
   background: url("/image/heroBg.jpg");
   background-size: auto 100%;
-  background-position: center;
 
   width: 100%;
-  aspect-ratio: 1440 / 823;
+  aspect-ratio: 375 / 238;
 
   .heeloo {
+    z-index: 3;
     position: absolute;
-    top: 42.5%;
-    left: 56.5%;
-    width: 37.9%;
+    top: 55.6%;
+    left: 60.4%;
+    width: 36.54%;
     animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @include bp.md {
+    aspect-ratio: 1440 / 823;
+    .heeloo {
+      top: 42.5%;
+      left: 56.5%;
+      width: 37.9%;
+    }
   }
 }
 
 .manContainer {
   position: relative;
-  aspect-ratio: 1097 / 823;
+  aspect-ratio: 317 / 238;
+
   height: 100%;
+  @include bp.md {
+    aspect-ratio: 1097 / 823;
+  }
+
   .man {
     z-index: 2;
     position: absolute;
