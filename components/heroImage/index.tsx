@@ -12,6 +12,7 @@ import heroBg from '@/public/image/heroBg.png';
 
 import scss from './index.module.scss';
 
+const standardWidth = 1920;
 const MAX_RADIUS = 7;
 
 /**
@@ -19,10 +20,10 @@ const MAX_RADIUS = 7;
  *
  * 將一個二維向量的長度（距離）限制在指定的最大半徑（max）以內。它的核心原理是使用畢氏定理和向量縮放。
  */
-function clampToRadius({ vectorX, vectorY, max }:{
+function clampToRadius({ vectorX, vectorY, maxRadius }:{
   vectorX: number, // 滑鼠座標與眼睛座標的X向量
   vectorY: number, // 滑鼠座標與眼睛座標的Y向量
-  max: number
+  maxRadius: number
 }) {
   if (vectorX === 0 && vectorY === 0) {
     return { x: 0, y: 0 };
@@ -37,7 +38,7 @@ function clampToRadius({ vectorX, vectorY, max }:{
  * 如果滑鼠距離 dist 大於最大半徑 max（例如：距離 20，最大 10）：
  * max / dist 會小於 1（這裡是 0.5）。Math.min(1, 0.5) 結果是 0.5。代表向量需要被等比例縮小。
  */
-  const ratio = Math.min(1, max / dist); // 計算縮放比例
+  const ratio = Math.min(1, maxRadius / dist); // 計算縮放比例
   const x = vectorX * ratio; // 縮放後的X座標
   const y = vectorY * ratio; // 縮放後的Y座標
 
@@ -48,10 +49,12 @@ const calcCoordinate = ({
   mouseX,
   mouseY,
   eyeEle,
+  maxRadius,
 }: {
   mouseX:number,
   mouseY:number,
   eyeEle: HTMLImageElement,
+  maxRadius: number
 }) => {
   const {
     left, width, top, height,
@@ -64,7 +67,7 @@ const calcCoordinate = ({
   const { x, y } = clampToRadius({
     vectorX,
     vectorY,
-    max: MAX_RADIUS,
+    maxRadius,
   });
 
   const theY = Math.min(0, y); // 最小Y最標為0，讓眼睛不會往下移動
@@ -76,18 +79,24 @@ const calcCoordinate = ({
 };
 
 export default function HeroImage() {
+  const refHeroImage = useRef<HTMLDivElement>(null);
   const refLeftEye = useRef<HTMLImageElement>(null);
   const refRightEye = useRef<HTMLImageElement>(null);
 
   const moveEyes = ({ mouseX, mouseY }: { mouseX:number; mouseY:number }) => {
-    if (!refLeftEye.current || !refRightEye.current) {
+    if (!refLeftEye.current || !refRightEye.current || !refHeroImage.current) {
       return;
     }
+
+    // 為了避免在小螢幕時眼睛移到眼眶外，所以根據螢幕寬度縮放眼睛移動的半徑
+    const heroImageWidth = refHeroImage.current.getBoundingClientRect().width;
+    const scaledRadius = MAX_RADIUS * (heroImageWidth / standardWidth);
 
     const { x: leftX, y: leftY } = calcCoordinate({
       mouseX,
       mouseY,
       eyeEle: refLeftEye.current,
+      maxRadius: scaledRadius,
     });
     refLeftEye.current.style.transform = `translate(${leftX}px, ${leftY}px)`;
 
@@ -95,6 +104,7 @@ export default function HeroImage() {
       mouseX,
       mouseY,
       eyeEle: refRightEye.current,
+      maxRadius: scaledRadius,
     });
     refRightEye.current.style.transform = `translate(${rightX}px, ${rightY}px)`;
   };
@@ -128,6 +138,7 @@ export default function HeroImage() {
   return (
     <div
       className={scss.heroImage}
+      ref={refHeroImage}
       onMouseMove={handleMouseMove}
       onMouseLeave={resetEyes}
       onTouchMove={handleTouchMove}
