@@ -1,13 +1,13 @@
 // import Image from 'next/image';
 
+import HeroImage from '../components/heroImage';
+
 export default function Home() {
   return (
     <div>
-      <div>fooooo</div>
-      <div>fooooo</div>
-      <div>fooooo</div>
-      <div>fooooo</div>
-      <div>fooooo</div>
+
+      <HeroImage />
+
     </div>
   );
 }

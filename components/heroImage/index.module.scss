@@ -1,0 +1,26 @@
+.heroImage {
+  background: url("/image/heroBg.jpg");
+  background-size: auto 100%;
+  // background-position: center;
+  background-position:contain ;
+  
+  width: 100%;
+  aspect-ratio: 1440 / 823;
+}
+
+.manContainer {
+  position: relative;
+
+  aspect-ratio: 1097 / 823;
+  height: 100%;
+  .man {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .manShadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
