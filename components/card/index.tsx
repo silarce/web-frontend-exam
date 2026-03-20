@@ -9,7 +9,7 @@ import scss from './index.module.scss';
 export default function Card() {
   return (
     <div className={scss.card}>
-      <h4 className={scss.title}>逸樂科技</h4>
+      <h4 className={scss.title}>弈樂科技</h4>
       <ul className={scss.list}>
         <li>
           <IconPersonOutline className="" />

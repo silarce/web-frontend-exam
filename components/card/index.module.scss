@@ -1,42 +1,57 @@
 @use "@/css/breakpoints" as bp;
+@use "@/css/typography" as tg;
 
 .card {
+  @include tg.body-2-regular;
   display: grid;
   gap: 10px;
+  // height: 210px;
+  padding: 16px;
   border: solid 1px var(--color-theme-border);
   border-radius: 6px;
-  padding: 16px;
-  font-size: 14px;
+
   &:hover {
     box-shadow: 0px 0px 8px 0px #00000059;
   }
+  // @include bp.md {
+  //   height: 220px;
+  // }
 }
 
 .title {
-  font-weight: 700;
-  font-size: 16px;
+  @include tg.body-3-bold;
   @include bp.md {
-    font-size: 24px;
+    @include tg.body-5-bold;
   }
 }
+
 .list {
+  display: grid;
+  gap: 8px;
   > li {
     display: flex;
     gap: 8px;
     color: var(--color-theme-subtitle);
   }
 }
+
 .desc {
+  height: 40px; // 為了當只有一行時維持行高
+
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   line-clamp: 2; /* 標準屬性 */
   overflow: hidden;
+  
+  // tg.body-2-regular的兩行行高低於40px，導致第三行出現了
+  // 調整line-height避免第三行出現
+  line-height: 20px;
 }
 
 .viewInfo {
+  @include tg.body-2-bold;
   justify-self: center;
-  font-weight: 700;
   color: var(--color-theme-info);
   cursor: pointer;
 }
