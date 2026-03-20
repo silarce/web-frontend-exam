@@ -1,4 +1,6 @@
-const data = [
+import type { SalarySchema } from '@/mocks/schemas';
+
+const data:SalarySchema[] = [
   {
     id: 1, label: '待遇面議',
   },

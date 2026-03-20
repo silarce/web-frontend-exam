@@ -2,6 +2,8 @@
 
 import { ThemeProvider } from 'next-themes';
 
+import('@/mocks/index');
+
 export default function Providers({ children }: { children:React.ReactNode }) {
   return (
     <ThemeProvider

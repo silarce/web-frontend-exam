@@ -1,4 +1,6 @@
-const data = [
+import type { EducationSchema } from '@/mocks/schemas';
+
+const data:EducationSchema[] = [
   {
     id: 1, label: '國小',
   },

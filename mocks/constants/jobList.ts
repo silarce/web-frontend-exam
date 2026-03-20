@@ -1,4 +1,6 @@
-const data = [
+import type { JobSchema } from '@/mocks/schemas';
+
+const data:JobSchema[] = [
   {
     companyName: '立刻科技',
     jobTitle: '資深前端工程師',
