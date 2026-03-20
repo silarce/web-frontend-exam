@@ -30,7 +30,7 @@ export default function RootLayout({
       data-theme="light"
       suppressHydrationWarning
     >
-      <body className={clsx('bg-theme-bg antialiased', notoSansTC.className)}>
+      <body className={clsx('bg-theme-bg-base antialiased', notoSansTC.className)}>
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <MuiThemeProvider>
             <Providers>
