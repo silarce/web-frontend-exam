@@ -1,8 +1,9 @@
 .jobList {
   display: grid;
-  gap: 12px;
+  gap: 10px;
   background: var(--color-theme-bg);
-  border-top: 1px solid var(--color-border-01);
+  border-width: 1px 0;
+  border-color: 1px solid var(--color-border-01);
   box-shadow: 2px 2px 4px 0px #00000040;
   padding: 16px;
 }
@@ -18,4 +19,8 @@
     background: var(--color-theme-info);
     border-radius: 100px;
   }
+}
+
+.pagination {
+  justify-self: center;
 }
