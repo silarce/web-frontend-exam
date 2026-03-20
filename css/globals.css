@@ -37,6 +37,7 @@
   body {
     background: var(--color-theme-bg-base);
     color: var(--color-theme-desc);
+    padding-bottom: 12px;
   }
   h1,
   h2,
