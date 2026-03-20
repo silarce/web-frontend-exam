@@ -2,19 +2,24 @@
 
 :root {
   --color-gradient-01: linear-gradient(90.51deg, #868686 1.54%, #5c5c5c 101.46%);
-  --color-white-01: rgba(255, 255, 255);
+  --color-gray-100: #ffffff;
+  --color-gray-500: #cccccc;
+  --color-gray-700: #999999;
+  --color-gray-800: #808080;
+  --color-gray-1000: #4d4d4d;
+  --color-orange-700: #ee8927;
 }
 
 :root,
 [data-theme="light"] {
   --color-theme-bg-base: var(--color-gradient-01);
-  --color-theme-bg: var(--color-white-01);
+  --color-theme-bg: var(--color-gray-100);
   --color-theme-title: var(--color-gray-1000);
   --color-theme-subtitle: var(--color-gray-800);
   --color-theme-desc: var(--color-gray-1000);
   --color-theme-info: var(--color-orange-700);
   --color-theme-btn: var(--color-gray-700);
-  --color-theme-border: var(--color-gray-100);
+  --color-theme-border: var(--color-gray-500);
 }
 
 @theme inline {
