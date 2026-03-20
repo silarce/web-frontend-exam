@@ -1,28 +1,29 @@
 @import "tailwindcss";
 
 :root {
-  --color-bg-01: linear-gradient(90.51deg, #868686 1.54%, #5c5c5c 101.46%);
-  --color-text-01: var(--color-gray-1000);
-  --color-text-02: var(--color-gray-800);
-  --color-text-03: var(--color-orange-700);
-  --color-btn-01: var(--color-gray-700);
+  --color-gradient-01: linear-gradient(90.51deg, #868686 1.54%, #5c5c5c 101.46%);
+  --color-white-01: rgba(255, 255, 255);
 }
 
 :root,
 [data-theme="light"] {
-  --color-theme-bg: var(--color-bg-01);
-  --color-theme-title: var(--color-text-01);
-  --color-theme-subTitle: var(--color-text-02);
-  --color-theme-desc: var(--color-text-01);
-  --color-theme-link: var(--color-text-03);
-  --color-theme-btn: var(--color-btn-01);
+  --color-theme-bg-primary: var(--color-gradient-01);
+  --color-theme-bg-surface: var(--color-white-01);
+  --color-theme-title: var(--color-gray-1000);
+  --color-theme-subtitle: var(--color-gray-800);
+  --color-theme-desc: var(--color-gray-1000);
+  --color-theme-info: var(--color-orange-700);
+  --color-theme-btn: var(--color-gray-700);
+  --color-theme-border: var(--color-gray-100);
 }
 
 @theme inline {
-  --background-image-theme-bg: var(--color-theme-bg);
+  --background-image-theme-bg: var(--color-theme-bg-primary);
+  --color-theme-bg-surface: var(--color-theme-bg-surface);
   --color-theme-title: var(--color-theme-title);
-  --color-theme-subTitle: var(--color-theme-subTitle);
+  --color-theme-subtitle: var(--color-theme-subTitle);
   --color-theme-desc: var(--color-theme-desc);
-  --color-theme-link: var(--color-theme-link);
+  --color-theme-info: var(--color-theme-info);
   --color-theme-btn: var(--color-theme-btn);
+  --color-theme-border: var(--color-theme-border);
 }
