@@ -1,0 +1,42 @@
+@use "@/css/breakpoints" as bp;
+
+.card {
+  display: grid;
+  gap: 10px;
+  border: solid 1px var(--color-theme-border);
+  border-radius: 6px;
+  padding: 16px;
+  font-size: 14px;
+  &:hover {
+    box-shadow: 0px 0px 8px 0px #00000059;
+  }
+}
+
+.title {
+  font-weight: 700;
+  font-size: 16px;
+  @include bp.md {
+    font-size: 24px;
+  }
+}
+.list {
+  > li {
+    display: flex;
+    gap: 8px;
+    color: var(--color-theme-subtitle);
+  }
+}
+.desc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2; /* 標準屬性 */
+  overflow: hidden;
+}
+
+.viewInfo {
+  justify-self: center;
+  font-weight: 700;
+  color: var(--color-theme-info);
+  cursor: pointer;
+}
