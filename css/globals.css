@@ -7,8 +7,8 @@
 
 :root,
 [data-theme="light"] {
-  --color-theme-bg-primary: var(--color-gradient-01);
-  --color-theme-bg-surface: var(--color-white-01);
+  --color-theme-bg-base: var(--color-gradient-01);
+  --color-theme-bg-primary: var(--color-white-01);
   --color-theme-title: var(--color-gray-1000);
   --color-theme-subtitle: var(--color-gray-800);
   --color-theme-desc: var(--color-gray-1000);
@@ -18,12 +18,17 @@
 }
 
 @theme inline {
-  --background-image-theme-bg: var(--color-theme-bg-primary);
-  --color-theme-bg-surface: var(--color-theme-bg-surface);
+  --background-image-theme-bg-base: var(--color-theme-bg-base);
+  --color-theme-bg: var(--color-theme-bg-primary);
   --color-theme-title: var(--color-theme-title);
   --color-theme-subtitle: var(--color-theme-subTitle);
   --color-theme-desc: var(--color-theme-desc);
   --color-theme-info: var(--color-theme-info);
   --color-theme-btn: var(--color-theme-btn);
   --color-theme-border: var(--color-theme-border);
+}
+
+
+div { 
+  background-color: var(--color-theme-bg-surface);
 }
