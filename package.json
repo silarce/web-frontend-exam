@@ -14,6 +14,8 @@
     "@emotion/styled": "^11.14.1",
     "@mui/material": "^7.3.9",
     "@mui/material-nextjs": "^7.3.9",
+    "@tanstack/react-query": "^5.91.3",
+    "axios": "^1.13.6",
     "clsx": "^2.1.1",
     "miragejs": "^0.1.48",
     "next": "15.5.13",
