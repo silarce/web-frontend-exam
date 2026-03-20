@@ -1,3 +1,7 @@
+// 以下斷點皆與tailwindcss預設斷點相同。
+// 若要修改應連同tailwind.config裡的斷點一起修改。
+// 若沒有tailwind.config就建立一個
+
 // $sm: 640px;
 $md: 768px;
 // $lg: 1024px;
@@ -5,6 +9,10 @@ $md: 768px;
 // $xxl: 1536px;
 
 // @mixin sm { @media (min-width: $sm) { @content; } }
-@mixin md { @media (min-width: $md) { @content; } }
+@mixin md {
+  @media (min-width: $md) {
+    @content;
+  }
+}
 // @mixin lg { @media (min-width: $lg) { @content; } }
 // @mixin xl { @media (min-width: $xl) { @content; } }
