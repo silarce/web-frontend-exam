@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, keepPreviousData } from '@tanstack/react-query';
 
 import type { JobPreviewDto } from '../job/dto';
 
@@ -47,6 +47,7 @@ const useApiGetJobs = (params:ApiGetJobsParams) => {
   const jobsQuery = useQuery({
     queryKey: ['apiGetJobs', params],
     queryFn: () => apiGetJobs(params),
+    placeholderData: keepPreviousData,
   });
 
   const jobsRes = jobsQuery.data;
