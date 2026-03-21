@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ThemeProvider } from 'next-themes';
 
 import {
@@ -9,11 +9,17 @@ import {
 } from '@tanstack/react-query';
 import MuiThemeProvider from './muiThemeProvider';
 
-import('@/mocks/index');
+// import('@/mocks/index'); // 舊的 MirageJS mock
 
 export default function Providers({ children }: { children:React.ReactNode }) {
   // 為了避免在next伺服器不同使用者共用資料，寫在hook裡面，確保QueryClient實例只會在本地
   const [queryClient] = useState(() => new QueryClient());
+  const [isMswReady, setIsMswReady] = useState(false);
+
+  useEffect(() => {
+    import('@/mocks/browser').then(({ worker }) => worker.start({ onUnhandledRequest: 'bypass' }))
+      .then(() => setIsMswReady(true));
+  }, []);
 
   return (
     <ThemeProvider
@@ -23,7 +29,7 @@ export default function Providers({ children }: { children:React.ReactNode }) {
     >
       <MuiThemeProvider>
         <QueryClientProvider client={queryClient}>
-          {children}
+          {isMswReady && children}
         </QueryClientProvider>
       </MuiThemeProvider>
     </ThemeProvider>
