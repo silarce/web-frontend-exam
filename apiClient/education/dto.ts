@@ -1,5 +1,5 @@
 type EducationDto = {
-  id:number;
+  id:string;
   label:string;
 };
 

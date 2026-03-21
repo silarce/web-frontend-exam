@@ -1,11 +1,18 @@
-type JobDto = {
+type JobPreviewDto = {
   companyName:string;
-  jobTitle:string;
   educationId:number;
-  salaryId:number;
+  id:string;
+  jobTitle:string;
   preview:string;
+  salaryId:number;
+};
+
+type JobDto = {
+  id:string;
+  companyName:string;
   companyPhoto:string[]; // 這是圖片URL的陣列
+  jobTitle:string;
   description:string; // 這是HTML字串
 };
 
-export type { JobDto };
+export type { JobPreviewDto, JobDto };
