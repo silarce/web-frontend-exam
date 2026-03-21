@@ -1,8 +1,8 @@
 import axiosInstance from '../axiosInstance';
-import type { JobDto } from './dto';
+import type { JobPreviewDto } from './dto';
 
 type ApiGetJobsResponse = {
-  data: JobDto[];
+  data: JobPreviewDto[];
   total: number;
 };
 
@@ -16,10 +16,17 @@ type ApiGetJobsParams = {
 
 const apiGetJobs = async (params:ApiGetJobsParams) => {
   const url = 'jobs';
-  return axiosInstance.get<ApiGetJobsResponse>(url, { params }).then(({ data }) => data);
+  return axiosInstance.get<ApiGetJobsResponse>(url, { params })
+    .then(({ data }) => data);
 };
 
-export { apiGetJobs };
+const apiGetJobById = async (id:string) => {
+  const url = `jobs/${id}`;
+  return axiosInstance.get<JobPreviewDto>(url)
+    .then(({ data }) => data);
+};
+
+export { apiGetJobs, apiGetJobById };
 export type {
   ApiGetJobsResponse,
   ApiGetJobsParams,
