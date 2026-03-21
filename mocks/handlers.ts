@@ -33,7 +33,7 @@ export const handlers = [
   // GET /api/v1/jobs
   http.get(`${BASE_URL}/jobs`, async ({ request }) => {
     // 模擬查詢資料庫與網路的延遲
-    await new Promise((resolve) => { setTimeout(resolve, 200); });
+    await new Promise((resolve) => { setTimeout(resolve, 500); });
 
     const url = new URL(request.url);
 
