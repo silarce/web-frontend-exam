@@ -6,7 +6,7 @@ import type { JobSchema } from './schemas';
 
 const BASE_URL = 'http://localhost:3000/api/v1';
 
-type JobPreview = Omit<JobSchema, 'companyPhoto' | 'description'>;
+type JobPreview = Omit<JobSchema, 'companyPhoto' | 'description'> & { id: string };
 
 const filterFormat = (
   data: JobPreview[],
@@ -43,9 +43,9 @@ export const handlers = [
     const prePage = Number(url.searchParams.get('pre_page'));
     const page = Number(url.searchParams.get('page'));
 
-    // 移除 companyPhoto 和 description（和 MirageJS 一樣）
+    // 移除 companyPhoto 和 description，加入 id（和 MirageJS 一樣從 "1" 開始）
     const data: JobPreview[] = jobList.map(
-      ({ companyPhoto, description, ...rest }) => rest,
+      ({ companyPhoto, description, ...rest }, index) => ({ id: String(index + 1), ...rest }),
     );
 
     if (!Number.isNaN(prePage) && !Number.isNaN(page)) {
@@ -75,13 +75,14 @@ export const handlers = [
   // GET /api/v1/jobs/:id
   http.get(`${BASE_URL}/jobs/:id`, ({ params }) => {
     const { id } = params;
-    const job = jobList.find((_, index) => String(index + 1) === id);
+    const jobIndex = jobList.findIndex((_, index) => String(index + 1) === id);
 
-    if (job) {
+    if (jobIndex !== -1) {
+      const job = jobList[jobIndex];
       const {
         preview, educationId, salaryId, ...rest
       } = job;
-      return HttpResponse.json(rest);
+      return HttpResponse.json({ id: String(jobIndex + 1), ...rest });
     }
 
     return HttpResponse.json([]);
