@@ -5,8 +5,6 @@ import clsx from 'clsx';
 
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 
-import MuiThemeProvider from './muiThemeProvider';
-
 import Providers from './providers';
 
 const notoSansTC = Noto_Sans_TC({
@@ -30,12 +28,11 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className={clsx(notoSansTC.className)}>
+        {/* AppRouterCacheProvider與SSR有關，不移到Providers裡 */}
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-          <MuiThemeProvider>
-            <Providers>
-              {children}
-            </Providers>
-          </MuiThemeProvider>
+          <Providers>
+            {children}
+          </Providers>
         </AppRouterCacheProvider>
       </body>
     </html>
