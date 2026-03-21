@@ -1,4 +1,5 @@
 .jobList {
+  position: relative;
   display: grid;
   gap: 10px;
   background: var(--color-theme-bg);
@@ -23,4 +24,14 @@
 
 .pagination {
   justify-self: center;
+}
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.circularProgress {
+  color: var(--color-theme-bg);
 }
