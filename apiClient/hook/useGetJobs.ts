@@ -139,10 +139,10 @@ const useApiGetJobs = (params:ApiGetJobsParams) => {
 //   };
 // };
 
-const useApiGetJobById = (id:number) => {
+const useApiGetJobById = ({ id }:{ id:string }) => {
   const { data, isFetching, error } = useQuery({
     queryKey: ['apiGetJobById', id],
-    queryFn: () => apiGetJobById(`${id}`),
+    queryFn: () => apiGetJobById(id),
   });
 
   return {
