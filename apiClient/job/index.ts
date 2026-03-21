@@ -7,11 +7,11 @@ type ApiGetJobsResponse = {
 };
 
 type ApiGetJobsParams = {
-  page:number;
-  pre_page:number;
+  page:`${number}` | number;
+  pre_page:`${number}` | number;
   company_name?:string;
-  education_level?:number;
-  salary_level?:number;
+  education_level?:`${number}` | number;
+  salary_level?:`${number}` | number;
 };
 
 const apiGetJobs = async (params:ApiGetJobsParams) => {
