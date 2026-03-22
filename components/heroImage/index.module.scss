@@ -29,7 +29,7 @@
     animation: pulse 1.5s ease-in-out infinite;
   }
 
-  @include bp.md {
+  @include bp.lg {
     aspect-ratio: 1440 / 823;
     .heeloo {
       top: 42.5%;
@@ -44,7 +44,7 @@
   height: 100%;
   aspect-ratio: 317 / 238;
 
-  @include bp.md {
+  @include bp.lg {
     aspect-ratio: 1097 / 823;
   }
 

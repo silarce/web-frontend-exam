@@ -32,7 +32,7 @@
 
   padding: 16px;
 
-  @include bp.md {
+  @include bp.lg {
     @include typo.body-5-bold;
   }
 }
@@ -65,7 +65,7 @@
       @include typo.body-2-regular;
     }
 
-    @include bp.md {
+    @include bp.lg {
       display: flex;
       gap: 8px;
       align-items: center;
@@ -86,7 +86,7 @@
       display: inline-block;
       margin-bottom: 8px;
     }
-    @include bp.md {
+    @include bp.lg {
       > span {
         @include typo.body-4-bold;
       }
@@ -112,7 +112,7 @@
 
     cursor: pointer;
   }
-  @include bp.md {
+  @include bp.lg {
     .btn {
       @include typo.body-3-bold;
       width: 54px;

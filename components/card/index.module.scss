@@ -14,14 +14,14 @@
   &:hover {
     box-shadow: 0px 0px 8px 0px #00000059;
   }
-  // @include bp.md {
+  // @include bp.lg {
   //   height: 220px;
   // }
 }
 
 .title {
   @include tg.body-3-bold;
-  @include bp.md {
+  @include bp.lg {
     @include tg.body-5-bold;
   }
 }
