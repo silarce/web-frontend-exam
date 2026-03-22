@@ -1,24 +1,57 @@
-.jobList {
+@use "@/css/typography" as typo;
+@use "@/css/breakpoints" as bp;
+
+.container {
   position: relative;
+  z-index: 2;
   display: grid;
   gap: 10px;
-  background: var(--color-theme-bg);
+  padding: 16px;
   border-width: 1px 0;
   border-color: 1px solid var(--color-border-01);
   box-shadow: 2px 2px 4px 0px #00000040;
-  padding: 16px;
+  background: var(--color-theme-bg);
+
+  @include bp.md {
+    gap: 20px;
+    padding: 24px;
+    border-width: 1px;
+    border-radius: 12px;
+    margin-right: 28px;
+    margin-left: 28px;
+    margin-top: -101px;
+    margin-bottom: 28px;
+  }
+}
+
+.list {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  @include bp.md {
+    gap: 12px;
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .title {
   > * {
     display: inline-block;
   }
-  > div:nth-of-type(1) {
+  > div {
     width: 4px;
     height: 16px;
     margin-right: 12px;
     background: var(--color-theme-info);
     border-radius: 100px;
+  }
+  h1 {
+    @include typo.body-4-bold;
+  }
+  @include bp.md {
+    h1 {
+      @include typo.body-5-bold;
+    }
   }
 }
 
@@ -34,4 +67,23 @@
 
 .circularProgress {
   color: var(--color-theme-bg);
+}
+
+.filterBar {
+  display: flex;
+  gap: 18px;
+
+  .input {
+    flex: 1;
+  }
+  .select {
+    flex: 0.3744;
+  }
+}
+
+.btn {
+  width: 108px;
+  background-color: var(--color-theme-btn);
+  color: var(--color-theme-btnText);
+  @include typo.body-3-regular;
 }
