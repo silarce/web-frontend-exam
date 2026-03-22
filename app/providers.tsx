@@ -7,7 +7,15 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
-import MuiThemeProvider from './muiThemeProvider';
+
+import { ThemeProvider as MuiThemeProvider, createTheme as createMuiTheme } from '@mui/material/styles';
+
+const muiTheme = createMuiTheme({
+  // cssVariables: true, // 可以在css中引用mui的顏色，不需要
+  typography: {
+    fontFamily: 'var(--font-noto-sans-tc)',
+  },
+});
 
 // import('@/mocks/index'); // 舊的 MirageJS mock
 
@@ -27,7 +35,7 @@ export default function Providers({ children }: { children:React.ReactNode }) {
       defaultTheme="light"
       themes={['light']}
     >
-      <MuiThemeProvider>
+      <MuiThemeProvider theme={muiTheme}>
         <QueryClientProvider client={queryClient}>
           {isMswReady && children}
         </QueryClientProvider>
