@@ -1,5 +1,5 @@
 import axiosInstance from '../axiosInstance';
-import type { JobPreviewDto } from './dto';
+import type { JobPreviewDto, JobDto } from './dto';
 
 type ApiGetJobsResponse = {
   data: JobPreviewDto[];
@@ -22,7 +22,7 @@ const apiGetJobs = async (params:ApiGetJobsParams) => {
 
 const apiGetJobById = async (id:string) => {
   const url = `jobs/${id}`;
-  return axiosInstance.get<JobPreviewDto>(url)
+  return axiosInstance.get<JobDto>(url)
     .then(({ data }) => data);
 };
 
