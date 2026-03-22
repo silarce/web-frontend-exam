@@ -30,10 +30,11 @@ export default function JobList() {
   const isFirstFetchSuccess = useRef(false);
 
   const RWDMatches = useMediaQuery('(min-width:1024px)');
-  const prePage = RWDMatches ? 6 : 4;
 
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const prePage = RWDMatches ? 6 : 4;
 
   const page = (searchParams.get('page') as `${number}`) ?? '1';
   const companyNameQs = searchParams.get('companyName') || undefined;
@@ -41,11 +42,11 @@ export default function JobList() {
   const stateSalaryIdQs = qsToNumberString(searchParams.get('stateSalaryId'));
   const infoIdQs = searchParams.get('infoId') || undefined;
 
-  const { data: educationList } = useApiGetEducationLevelList();
-  const { data: salaryList } = useApiGetSalaryLevelList();
-
   const enableFetch = !(!RWDMatches
      && (!!companyNameQs || !!stateEducationIdQs || !!stateSalaryIdQs));
+
+  const { data: educationList } = useApiGetEducationLevelList();
+  const { data: salaryList } = useApiGetSalaryLevelList();
 
   const {
     jobs, total, isFetching,
@@ -240,6 +241,7 @@ export default function JobList() {
           size={60}
         />
       </Backdrop>
+
       <JobInfo
         id={infoIdQs}
         onClose={handleCloseInfo}
