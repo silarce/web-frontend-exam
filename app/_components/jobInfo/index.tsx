@@ -1,4 +1,7 @@
 import Modal from '@mui/material/Modal';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Autoplay } from 'swiper/modules';
+import Image from 'next/image';
 
 import { useApiGetJobById } from '@/apiClient/hook/useGetJobs';
 
@@ -7,14 +10,11 @@ import scss from './index.module.scss';
 export default function JobInfo() {
   const { job } = useApiGetJobById({ id: '1' });
 
-  // console.log(job);
+  console.log(job);
 
   return (
 
-    <Modal
-      open
-      // sx={{ overflow: 'auto' }}
-    >
+    <Modal open>
       <div className={scss.container}>
 
         <div className={scss.title}>
@@ -28,10 +28,31 @@ export default function JobInfo() {
             <h6>{job?.jobTitle}</h6>
           </div>
 
-          <div className={scss.carousel}>
-            <div>輪播圖保留區</div>
-            <div>輪播圖保留區</div>
-            <div>輪播圖保留區</div>
+          <div>
+            <Swiper
+              className={scss.swiper}
+              modules={[Pagination, Autoplay]}
+              slidesPerView="auto"
+              spaceBetween={8}
+              pagination={{ clickable: true }}
+              loop
+              autoplay={{ delay: 3000 }}
+            >
+              {job?.companyPhoto.map((url, index) => (
+                <SwiperSlide
+                  key={index}
+                  className={scss.swiperSlide}
+                >
+                  <Image
+                    src={url}
+                    alt={url}
+                    width="250"
+                    height="150"
+                    // fill
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
 
           <div className={scss.desc}>
