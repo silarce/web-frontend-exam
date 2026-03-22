@@ -140,10 +140,11 @@ const useApiGetJobs = (params:ApiGetJobsParams) => {
 //   };
 // };
 
-const useApiGetJobById = ({ id }:{ id:string }) => {
+const useApiGetJobById = ({ id }:{ id:string | undefined }) => {
   const { data, isFetching, error } = useQuery({
     queryKey: ['apiGetJobById', id],
-    queryFn: () => apiGetJobById(id),
+    queryFn: () => apiGetJobById(id!),
+    enabled: id !== undefined, // 只在 id 有值時才執行查詢
   });
 
   return {
