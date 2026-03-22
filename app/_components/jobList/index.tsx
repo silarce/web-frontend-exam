@@ -61,8 +61,8 @@ export default function JobList() {
   });
 
   const {
-    companyName, stateEducationId, stateSalaryId,
-    setCompanyName, setStateEducationId, setStateSalaryId,
+    stateCompanyName: companyName, stateEducationId, stateSalaryId,
+    setStateCompanyName: setCompanyName, setStateEducationId, setStateSalaryId,
   } = useSearch(
     {
       defaultCompanyName: companyNameQs ?? '',

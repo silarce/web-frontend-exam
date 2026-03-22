@@ -12,15 +12,15 @@ const useSearch = ((
     defaultStateSalaryId:string
   },
 ) => {
-  const [companyName, setCompanyName] = useState<string>(defaultCompanyName);
+  const [stateCompanyName, setStateCompanyName] = useState<string>(defaultCompanyName);
   const [stateEducationId, setStateEducationId] = useState<string>(defaultStateEducationId);
   const [stateSalaryId, setStateSalaryId] = useState<string>(defaultStateSalaryId);
 
   return {
-    companyName,
+    stateCompanyName,
     stateEducationId,
     stateSalaryId,
-    setCompanyName,
+    setStateCompanyName,
     setStateEducationId,
     setStateSalaryId,
   };
