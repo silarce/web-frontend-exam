@@ -21,14 +21,26 @@ import { useApiGetJobs } from '@/apiClient/hook/useGetJobs';
 import { useApiGetEducationLevelList } from '@/apiClient/hook/useApiGetEducationLevelList';
 import { useApiGetSalaryLevelList } from '@/apiClient/hook/useApiGetSalaryLevelList';
 
+import qsToNumberString from '@/utils/qsToNumberString';
 import JobInfo from '../jobInfo';
 
 import scss from './index.module.scss';
 
-const useSearch = (() => {
-  const [companyName, setCompanyName] = useState<string>('');
-  const [stateEducationId, setStateEducationId] = useState<string>('null');
-  const [stateSalaryId, setStateSalaryId] = useState<string>('null');
+const useSearch = ((
+  {
+    defaultCompanyName = '',
+    defaultStateEducationId = 'null',
+    defaultStateSalaryId = 'null',
+  }:
+  {
+    defaultCompanyName:string
+    defaultStateEducationId:string
+    defaultStateSalaryId:string
+  },
+) => {
+  const [companyName, setCompanyName] = useState<string>(defaultCompanyName);
+  const [stateEducationId, setStateEducationId] = useState<string>(defaultStateEducationId);
+  const [stateSalaryId, setStateSalaryId] = useState<string>(defaultStateSalaryId);
 
   return {
     companyName,
@@ -49,8 +61,8 @@ export default function JobList() {
 
   const page = (searchParams.get('page') as `${number}`) ?? '1';
   const companyNameQs = searchParams.get('companyName') || undefined;
-  const stateEducationIdQs = Number(searchParams.get('stateEducationId'));
-  const stateSalaryIdQs = Number(searchParams.get('stateSalaryId'));
+  const stateEducationIdQs = qsToNumberString(searchParams.get('stateEducationId'));
+  const stateSalaryIdQs = qsToNumberString(searchParams.get('stateSalaryId'));
   const infoIdQs = searchParams.get('infoId') || undefined;
 
   const { data: educationList } = useApiGetEducationLevelList();
@@ -67,7 +79,13 @@ export default function JobList() {
   const {
     companyName, stateEducationId, stateSalaryId,
     setCompanyName, setStateEducationId, setStateSalaryId,
-  } = useSearch();
+  } = useSearch(
+    {
+      defaultCompanyName: companyNameQs ?? '',
+      defaultStateEducationId: stateEducationIdQs ? `${stateEducationIdQs}` : 'null',
+      defaultStateSalaryId: stateSalaryIdQs ? `${stateSalaryIdQs}` : 'null',
+    },
+  );
 
   const jobListRef = useRef<HTMLDivElement>(null);
 
