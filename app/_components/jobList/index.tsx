@@ -56,7 +56,7 @@ export default function JobList() {
   const jobListRef = useRef<HTMLDivElement>(null);
   const isFirstFetchSuccess = useRef(false);
 
-  const matches = useMediaQuery('(min-width:768px)');
+  const matches = useMediaQuery('(min-width:1024px)');
   const prePage = matches ? 6 : 4;
 
   const router = useRouter();
