@@ -14,22 +14,30 @@
 [data-theme="light"] {
   --color-theme-bg-base: var(--color-gradient-01);
   --color-theme-bg: var(--color-gray-100);
+
   --color-theme-title: var(--color-gray-1000);
   --color-theme-subtitle: var(--color-gray-800);
   --color-theme-desc: var(--color-gray-1000);
   --color-theme-info: var(--color-orange-700);
+  --color-theme-btnText: var(--color-gray-100);
+
   --color-theme-btn: var(--color-gray-700);
+
   --color-theme-border: var(--color-gray-500);
 }
 
 @theme inline {
   --background-image-theme-bg-base: var(--color-theme-bg-base);
   --color-theme-bg: var(--color-theme-bg);
+
   --color-theme-title: var(--color-theme-title);
   --color-theme-subtitle: var(--color-theme-subtitle);
   --color-theme-desc: var(--color-theme-desc);
   --color-theme-info: var(--color-theme-info);
+  --color-theme-btnText: var(--color-theme-btnText);
+
   --color-theme-btn: var(--color-theme-btn);
+  
   --color-theme-border: var(--color-theme-border);
 }
 
