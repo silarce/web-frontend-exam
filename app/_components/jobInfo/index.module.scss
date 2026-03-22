@@ -6,7 +6,13 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+
   width: calc(100% - 17px * 2);
+  max-height: 80vh;
+  overflow: hidden;
 
   background-color: var(--color-theme-bg);
 
@@ -15,6 +21,7 @@
   box-shadow: 0px 9px 46px 8px #0000001f;
 
   border-radius: 8px;
+  outline: none;
 }
 
 .title {
@@ -34,7 +41,7 @@
   display: grid;
   gap: 12px;
 
-  height: 500px;
+  // height: 50%;
   overflow: auto;
 
   padding: 16px;

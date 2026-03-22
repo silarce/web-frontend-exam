@@ -10,8 +10,6 @@ import scss from './index.module.scss';
 export default function JobInfo() {
   const { job } = useApiGetJobById({ id: '1' });
 
-  console.log(job);
-
   return (
 
     <Modal open>
