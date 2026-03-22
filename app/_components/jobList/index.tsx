@@ -53,6 +53,9 @@ const useSearch = ((
 });
 
 export default function JobList() {
+  const jobListRef = useRef<HTMLDivElement>(null);
+  const isFirstFetchSuccess = useRef(false);
+
   const matches = useMediaQuery('(min-width:768px)');
   const prePage = matches ? 6 : 4;
 
@@ -68,7 +71,9 @@ export default function JobList() {
   const { data: educationList } = useApiGetEducationLevelList();
   const { data: salaryList } = useApiGetSalaryLevelList();
 
-  const { jobs, total, isFetching } = useApiGetJobs({
+  const {
+    jobs, total, isFetching,
+  } = useApiGetJobs({
     page,
     pre_page: prePage,
     company_name: companyNameQs,
@@ -86,8 +91,6 @@ export default function JobList() {
       defaultStateSalaryId: stateSalaryIdQs ? `${stateSalaryIdQs}` : 'null',
     },
   );
-
-  const jobListRef = useRef<HTMLDivElement>(null);
 
   const educationOptions = useMemo(() => {
     const options = (educationList ?? [])
@@ -144,6 +147,15 @@ export default function JobList() {
   };
 
   useEffect(() => {
+    if (!isFirstFetchSuccess.current && jobs.length === 0) {
+      return;
+    }
+
+    if (!isFirstFetchSuccess.current && jobs.length > 0) {
+      isFirstFetchSuccess.current = true;
+      return;
+    }
+
     if (!matches) {
       jobListRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
