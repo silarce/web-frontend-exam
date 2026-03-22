@@ -97,54 +97,6 @@ const useApiGetJobs = (params:ApiGetJobsParams, {
   };
 };
 
-// const useApiGetJobById = (id:number) => {
-//   const educationLevelListQuery = useApiGetEducationLevelList();
-//   const salaryLevelListQuery = useApiGetSalaryLevelList();
-//   const { educationLevelDict } = educationLevelListQuery;
-//   const { salaryLevelDict } = salaryLevelListQuery;
-
-//   const jobQuery = useQuery({
-//     queryKey: ['apiGetJobById', id],
-//     queryFn: () => apiGetJobById(`${id}`),
-//   });
-
-//   const job = jobQuery.data;
-
-//   const mappedJob:Job | null = useMemo(() => {
-//     if (!job || educationLevelListQuery.error || salaryLevelListQuery.error) {
-//       return null;
-//     }
-
-//     const mapped = mapJob({
-//       job,
-//       educationLevelListDict: educationLevelDict,
-//       salaryLevelListDict: salaryLevelDict,
-//     });
-
-//     return mapped;
-//   }, [
-//     job,
-//     educationLevelDict,
-//     salaryLevelDict,
-//     educationLevelListQuery.error,
-//     salaryLevelListQuery.error,
-//   ]);
-
-//   const isFetching = jobQuery.isFetching
-//   || educationLevelListQuery.isFetching
-//   || salaryLevelListQuery.isFetching;
-
-//   const error = (jobQuery.error
-//   || educationLevelListQuery.error
-//   || salaryLevelListQuery.error) ? '取得職缺資料失敗' : null;
-
-//   return {
-//     job: mappedJob,
-//     isFetching,
-//     error,
-//   };
-// };
-
 const useApiGetJobById = ({ id }:{ id:string | undefined }) => {
   const { data, isFetching, error } = useQuery({
     queryKey: ['apiGetJobById', id],
