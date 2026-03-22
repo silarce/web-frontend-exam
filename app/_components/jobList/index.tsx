@@ -56,8 +56,8 @@ export default function JobList() {
   const jobListRef = useRef<HTMLDivElement>(null);
   const isFirstFetchSuccess = useRef(false);
 
-  const matches = useMediaQuery('(min-width:1024px)');
-  const prePage = matches ? 6 : 4;
+  const RWDMatches = useMediaQuery('(min-width:1024px)');
+  const prePage = RWDMatches ? 6 : 4;
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -71,6 +71,9 @@ export default function JobList() {
   const { data: educationList } = useApiGetEducationLevelList();
   const { data: salaryList } = useApiGetSalaryLevelList();
 
+  const enableFetch = !(!RWDMatches
+     && (!!companyNameQs || !!stateEducationIdQs || !!stateSalaryIdQs));
+
   const {
     jobs, total, isFetching,
   } = useApiGetJobs({
@@ -79,6 +82,8 @@ export default function JobList() {
     company_name: companyNameQs,
     education_level: stateEducationIdQs || undefined,
     salary_level: stateSalaryIdQs || undefined,
+  }, {
+    enabled: enableFetch,
   });
 
   const {
@@ -156,10 +161,20 @@ export default function JobList() {
       return;
     }
 
-    if (!matches) {
+    if (!RWDMatches) {
       jobListRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [jobs]);
+
+  // mobile與desktop要顯示的資料數量不同，所以要重新取資料
+  // 實務上幾乎不會發生，不使用
+  // useEffect(handleSearch, [prePage]);
+
+  useEffect(() => {
+    if (!enableFetch) {
+      router.replace(`/?page=${1}`, { scroll: false });
+    }
+  }, []); // 只在 mount 時執行
 
   return (
 
@@ -170,7 +185,7 @@ export default function JobList() {
         <h1>適合前端工程師的好工作</h1>
       </div>
 
-      {matches && (
+      {RWDMatches && (
       <form
         className={scss.filterBar}
         onSubmit={(e) => {

@@ -37,7 +37,11 @@ const mapJob = (
   return mappedJob;
 };
 
-const useApiGetJobs = (params:ApiGetJobsParams) => {
+const useApiGetJobs = (params:ApiGetJobsParams, {
+  enabled = true,
+}:{
+  enabled?:boolean
+} = {}) => {
   const educationLevelListQuery = useApiGetEducationLevelList();
   const salaryLevelListQuery = useApiGetSalaryLevelList();
 
@@ -48,6 +52,7 @@ const useApiGetJobs = (params:ApiGetJobsParams) => {
     queryKey: ['apiGetJobs', params],
     queryFn: () => apiGetJobs(params),
     placeholderData: keepPreviousData,
+    enabled,
   });
 
   const jobsRes = jobsQuery.data;
