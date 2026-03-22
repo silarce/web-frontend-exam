@@ -11,6 +11,7 @@
   grid-template-rows: auto 1fr auto;
 
   width: calc(100% - 17px * 2);
+  max-width: 750px;
   max-height: 80vh;
   overflow: hidden;
 
@@ -31,8 +32,9 @@
 
   padding: 16px;
 
-  // @include bp.md {
-  // }
+  @include bp.md {
+    @include typo.body-5-bold;
+  }
 }
 
 .content {
@@ -54,12 +56,27 @@
     z-index: 2;
     padding-top: 16px;
     background-color: var(--color-theme-bg);
+
     > h5 {
       @include typo.body-4-bold;
       margin-bottom: 4px;
     }
     > h6 {
       @include typo.body-2-regular;
+    }
+
+    @include bp.md {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+
+      > h5 {
+        @include typo.body-5-bold;
+        margin-bottom: unset;
+      }
+      > h6 {
+        @include typo.body-4-regular;
+      }
     }
   }
 
@@ -68,6 +85,11 @@
       @include typo.body-3-bold;
       display: inline-block;
       margin-bottom: 8px;
+    }
+    @include bp.md {
+      > span {
+        @include typo.body-4-bold;
+      }
     }
   }
 }
@@ -79,9 +101,23 @@
     width: 53px;
     height: 34px;
 
-    color: var(--color-theme-desc);
     margin: auto;
     margin-right: 0;
+
+    color: var(--color-theme-desc);
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 26px;
+    letter-spacing: 0.46px;
+
+    cursor: pointer;
+  }
+  @include bp.md {
+    .btn {
+      @include typo.body-3-bold;
+      width: 54px;
+      height: 36px;
+    }
   }
 }
 
