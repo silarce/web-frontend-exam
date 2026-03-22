@@ -7,12 +7,23 @@ import { useApiGetJobById } from '@/apiClient/hook/useGetJobs';
 
 import scss from './index.module.scss';
 
-export default function JobInfo() {
-  const { job } = useApiGetJobById({ id: '1' });
+type JobInfoProps = {
+  id: string | undefined;
+  onClose: () => void;
+};
+
+export default function JobInfo(
+  { id, onClose }:JobInfoProps,
+
+) {
+  const { job } = useApiGetJobById({ id });
 
   return (
 
-    <Modal open>
+    <Modal
+      open={!!id}
+      onClose={onClose}
+    >
       <div className={scss.container}>
 
         <div className={scss.title}>
@@ -38,6 +49,7 @@ export default function JobInfo() {
             >
               {job?.companyPhoto.map((url, index) => (
                 <SwiperSlide
+                  // eslint-disable-next-line react/no-array-index-key
                   key={index}
                   className={scss.swiperSlide}
                 >
@@ -64,6 +76,7 @@ export default function JobInfo() {
           <button
             type="button"
             className={scss.btn}
+            onClick={onClose}
           >
             關閉
           </button>
