@@ -1,167 +1,85 @@
-# Frontend Engineer Exam
+# 1. 如何執行此專案
 
-這是一份 Yile 前端工程師的徵才專案，會需根據規則及設計檔完成頁面需求。
+請確定已安裝 Node.js 和 npm，然後在專案根目錄下依序執行以下命令：
 
-## ⭐️ 需求
+**開發模式：**
+```bash
+npm run i
+npm run dev
+```
 
-### 框架
-
-1. 語言：Javascript
-2. Framework：
-   1. 建議使用 React.js / Next.js，使用 Vue.js 亦可接受
-
-### CSS
-
-可以選擇以下其一或者搭配做為使用
-
-1. [Material UI](https://mui.com/material-ui/)
-2. [Sass](https://sass-lang.com/)
-3. [Tailwindcss](https://tailwindcss.com/)
-
-### Coding Style
-
-採用 [Google Coding Style](https://google.github.io/styleguide/) 或 [Airbnb Style](https://github.com/airbnb/javascript)，我們將會審查你的程式碼是否符合風格規範
-
-## 📝 實作描述
-
-- 請 Fork 此專案做開發
-- 根據 [Figma](https://www.figma.com/file/VcTqAK0x3JBi9nMvqN9YXJ/Web-Frontend-Developer-Exam?type=design&node-id=0%3A1&mode=design&t=EAnp3AAU1aqJ66e2-1) 實作頁面，請 `登入` 帳號才可看到實作細節
-- 若有任何優化、更好方式請自由發揮，但確保基本功能皆有達成需求
-
-## ✅ 提交說明
-
-1. 請將專案上傳至 Github，提交 Repositories 連結給HR，我們將會閱讀你的程式碼
-2. 請提供一份 README 文件說明
-   1. 如何執行此專案
-   2. 專案架構、邏輯說明
-   3. 專案遇到的困難、問題及解決方法
-3. 請回傳給HR，內容需包含 Github Repositories Link
-
-## 🥇 加分項目
-
-- 加載資料時的過渡表現
-- 細節動畫表現
-- 部署至任一平台以供成果檢視，例如：Heroku、AWS S3、GCS、Github Page …… 等
-
-## ⚙️ API
-
-### Job List [GET] `/api/v1/jobs`
-
-工作列表
-
-**Parameter**
-
-| Name | Description |
-| ---------------- | -------------- |
-| pre_page         | 每頁顯示筆數     |
-| page             | 指定頁面頁數     |
-| company_name     | 公司名稱        |
-| education_level  | 教育程度 id     |
-| salary_level     | 薪資範圍 id     |
-
-**Response**
-
-```json
-{
-  "data": [
-    {
-      "id": "1",
-      "companyName": "立刻科技",
-      "jobTitle": "資深前端工程師",
-      "educationId": 4,
-      "salaryId": 3,
-      "preview": "招募經驗豐富的前端工程師，共創卓越網頁體驗！",
-    }
-  ],
-  "total": 1
-}
+**或者，建置並啟動生產模式：**
+```bash
+npm run i
+npm run build
+npm run start
 ```
 
 ---
 
-### Education Level List [GET] `/api/v1/educationLevelList`
+# 2. 專案架構、邏輯說明
 
-教育程度列表
+依職責關注點分離原則劃分目錄：
 
-**Response**
-
-```json
-[
-  {
-     "id": "1", "label": "國小"
-  },
-  {
-     "id": "2", "label": "國中"
-  },
-  {
-     "id": "3", "label": "高中"
-  },
-  {
-     "id": "4", "label": "大學"
-  },
-  {
-     "id": "5", "label": "碩士"
-  },
-  {
-     "id": "6", "label": "博士"
-  }
-]
+```text
+├── app/               # Next.js App Router 頁面路由層與全域設定
+│   ├── _components/   # 僅供該層級頁面使用的特定業務元件 (如 jobInfo, jobList)
+│   ├── _hook/         # 頁面層級的狀態邏輯 (如 useSearch.ts)
+│   └── providers.tsx  # 管理與封裝所有第三方套件的 Context Provider (如 TanStack Query 等)
+├── apiClient/         # 統一的 API 管理層
+│   ├── axiosInstance.ts # Axios 實體與攔截器設定
+│   ├── hook/          # 封裝好的 API 請求 Hooks (供元件直接呼叫)(因為api很少所以都放一起，不然每個domain下會有專屬hook)
+│   └── {api模組}/      # 依據api模組區分 (如 education, job, salary)，包含 api請求函式 與 DTO 定義
+├── components/        # 全域共用的基礎獨立 UI 元件 (如 Card, myInput, mySelect)
+├── css/               # 全域樣式庫 (包含 Typography, Breakpoints 設定)
+├── mocks/             # MSW的Mock 資料、Schema 與請求攔截邏輯處理
+└── utils/             # 獨立的純函式工具庫 (如 qsToNumberString.ts 等共用運算邏輯)
 ```
+
+### 主題色與字階
+* 專案有建立主題色與字階，可以快速調整整個網站的顏色或字體樣式。
+* 若有需要可以快速實作主題色切換功能。
+
+### API 的部分
+* 每個 API 都會建立一個 API 請求函式，該函式可能被一個或多個 hook 使用。
+* 一個 hook 依情況使用一個或多個 API 請求函式，再依情況看是否 map/sort 資料。
+* hook 接收的參數內容若有變化就會自動重新取資料。
+
+### 關於元件
+* 所有的 UI 元件都是啞元件，沒有任何業務邏輯，僅根據 props 渲染 UI。
+* 並且都有設置獨立的介面，避免與其他元件耦合。
+
+### 關於 heroImage
+* 將多張圖片重疊組成一張完整的圖。
+* 圖片的大小與位置都是用百分比，這樣在不同大小的畫面看起來都會一樣。
+* 移動眼睛的做法為在 heroImage 上綁定事件：取得滑鼠的座標，再與眼睛的座標比較計算後眼睛的新座標；然後再改變眼睛的 style，用 `transform: translate` 的方式移動眼睛。
+* 圖片放大縮小動畫用 CSS animation 實現。
+
+### 搜尋功能的實現
+* 每個欄位都有各自的狀態，待使用者按下搜尋按鈕後，就會把狀態送進 url 的 query string 裡面。
+* qs 的值作為 API hook 的參數，一改變就會重新取資料。
+* 因為搜尋參數放在 url 裡面，所以使用者可以直接複製網址分享給其他人。
+* 另外在 RWD mobile 時，取得資料後 scrollbar 會自動滾到上方。
+
+### 職缺明細的部分
+* 輪播圖使用 swiper 實現。
 
 ---
 
-### Salary Level List [GET] `/api/v1/salaryLevelList`
+# 3. 專案遇到的困難、問題及解決方法
 
-薪資範圍列表
+1. **ESLint 版本不兼容問題**
+   `eslint-config-airbnb` 不支援 ESLint 9，若用 ESLint 9 專案無法啟動。但 Next.js 16 似乎有部分功能要用到 ESLint 9。
+   > **解決方法：** 為了避免未知的問題，決定將 Next.js 降回 15 並使用 ESLint 8。
 
-**Response**
+2. **Next.js App Router 與 MUI 的相容性**
+   Next.js 的 App Router 對 MUI 不友善。直接使用的話會出問題。
+   > **解決方法：** 按照官方文件做一些設定才正常開發。
 
-```json
-[
-  {
-    "id": "1", "label": "待遇面議"
-  },
-  {
-    "id": "2", "label": "月薪 40,000 ~ 60,000 元"
-  },
-  {
-    "id": "3", "label": "月薪 70,000 ~ 100,000 元"
-  },
-  {
-    "id": "4", "label": "年薪 800,000 ~ 1,000,000 元"
-  },
-  {
-    "id": "5", "label": "年薪 800,000 ~ 1,500,000 元"
-  },
-  {
-    "id": "6", "label": "年薪 1,500,000 ~ 2,000,000 元"
-  },
-  {
-    "id": "7", "label": "年薪 2,000,000 ~ 2,500,000 元"
-  }
-]
-```
+3. **MirageJS 於 App Router 的執行錯誤**
+   MirageJS 在 App Router 使用會出問題。當 URL 改變時，Next.js 會發出請求取得 RSC，MirageJS 會攔截這個請求然後發生錯誤，於是整個網頁就重啟了 (相當於按下F5)。
+   > **解決方法：** 最後決定改用 MSW，並用 vibe coding 建立 mock。
 
----
+     
 
-### Job [GET] `/api/v1/jobs/:id`
 
-單一工作資訊
-
-**Response**
-
-```json
-{
-  "id": "6",
-  "description": "<h1>貨運操作員</h1><h2>工作地點：公司總部 - 台北市</h2><h2>職責與要求</h2><ul><li>負責倉儲內的物品搬運、分裝、包裝及出貨作業，確保貨物的準確性和完整性。<br />遵循公司的作業流程和安全規範，保障倉庫內的工作環境。<br />與團隊成員合作，確保倉儲操作的順暢進行。<br />需具備基本的電腦操作能力，能使用相關SaaS系統進行庫存管理。<br />需要有良好的溝通協調能力，能有效地與其他部門合作，確保整體物流運作的協調性。<br />對倉儲物流行業有興趣，願意學習並接受公司提供的培訓。</li></ul><h2>資格</h2><ul><li>至少高中畢業，具備相關物流或倉儲操作經驗者優先考慮。<br />具有貨運相關證照者尤佳。<br />對工作積極負責，有良好的工作態度和團隊協作精神。<br />願意接受輪班工作，能夠適應倉儲作業的體力需求。</li></ul><h2>我們提供</h2><ul><li>充滿挑戰性的工作環境，與國際化的專業團隊一同合作。<br />完善的培訓體系，協助您提升相關技能和知識。<br />良好的晉升機會，公司快速發展將為您提供更多職涯發展空間。<br />公司福利包括勞健保、團體保險、員工餐飲補助等。</li></ul><p>如果您渴望挑戰自我，想要加入一個充滿活力和機會的團隊，請將您的履歷寄至 <a href=\"mailto:hr@jenjanlogistics.com\">hr@jenjanlogistics.com</a>，我們期待與您攜手共創物流行業的未來。<br /><br />【JenJan真站電商衛星倉儲物流】期待您的加入！</p>",
-  "companyPhoto": [
-    "https://picsum.photos/250/150",
-    "https://picsum.photos/250/150",
-    "https://picsum.photos/250/150",
-    "https://picsum.photos/250/150",
-    "https://picsum.photos/250/150"
-  ],
-  "jobTitle": "廚師助手",
-  "companyName": "餐飲樂活"
-}
-```
