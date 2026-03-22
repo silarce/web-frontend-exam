@@ -12,6 +12,7 @@ import scss from './index.module.scss';
     education:string;
     salary:string;
     preview:string;
+    onInfoClick: ()=>void;
   };
 
 export default function Card(
@@ -21,6 +22,7 @@ export default function Card(
     education,
     salary,
     preview,
+    onInfoClick,
   }:
   CardProps,
 ) {
@@ -44,7 +46,13 @@ export default function Card(
       <div className={scss.desc}>
         {preview}
       </div>
-      <div className={scss.viewInfo}>查看細節</div>
+      <button
+        type="button"
+        className={scss.viewInfo}
+        onClick={onInfoClick}
+      >
+        查看細節
+      </button>
     </div>
   );
 }
