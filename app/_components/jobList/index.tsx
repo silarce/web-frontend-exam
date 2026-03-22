@@ -21,6 +21,8 @@ import { useApiGetJobs } from '@/apiClient/hook/useGetJobs';
 import { useApiGetEducationLevelList } from '@/apiClient/hook/useApiGetEducationLevelList';
 import { useApiGetSalaryLevelList } from '@/apiClient/hook/useApiGetSalaryLevelList';
 
+import JobInfo from '../jobInfo';
+
 import scss from './index.module.scss';
 
 const useSearch = (() => {
@@ -203,6 +205,7 @@ export default function JobList() {
           size={60}
         />
       </Backdrop>
+      <JobInfo />
     </div>
   );
 }
