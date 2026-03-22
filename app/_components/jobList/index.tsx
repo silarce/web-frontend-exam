@@ -166,18 +166,17 @@ export default function JobList() {
     }
   }, [jobs]);
 
-  // mobile與desktop要顯示的資料數量不同，所以要重新取資料
-  // 實務上幾乎不會發生，不使用
-  // useEffect(handleSearch, [prePage]);
-
   useEffect(() => {
     if (!enableFetch) {
       router.replace(`/?page=${1}`, { scroll: false });
     }
-  }, []); // 只在 mount 時執行
+  }, []);
+
+  // mobile與desktop要顯示的資料數量不同，所以要重新取資料
+  // 實務上幾乎不會發生，不使用這個useEffect
+  // useEffect(handleSearch, [prePage]);
 
   return (
-
     <div className={scss.container} ref={jobListRef}>
 
       <div className={scss.title}>
@@ -259,11 +258,6 @@ export default function JobList() {
           router.replace(`/?${qs}`, {
             scroll: false,
           });
-
-          // window.history.replaceState不會觸發取RSC的api
-          // 這樣miragejs應該能正常運作，但已經改用msw了
-          // 現在一切運作正常，就不改回miragejs了
-          // window.history.replaceState(null, '', `/?${qs}`);
         }}
       />
 
