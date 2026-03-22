@@ -1,8 +1,6 @@
 'use client';
 
-import {
-  useState, useRef, useEffect, useMemo,
-} from 'react';
+import { useRef, useEffect, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -22,35 +20,10 @@ import { useApiGetEducationLevelList } from '@/apiClient/hook/useApiGetEducation
 import { useApiGetSalaryLevelList } from '@/apiClient/hook/useApiGetSalaryLevelList';
 
 import qsToNumberString from '@/utils/qsToNumberString';
+import useSearch from '@/app/_hook/useSearch';
 import JobInfo from '../jobInfo';
 
 import scss from './index.module.scss';
-
-const useSearch = ((
-  {
-    defaultCompanyName = '',
-    defaultStateEducationId = 'null',
-    defaultStateSalaryId = 'null',
-  }:
-  {
-    defaultCompanyName:string
-    defaultStateEducationId:string
-    defaultStateSalaryId:string
-  },
-) => {
-  const [companyName, setCompanyName] = useState<string>(defaultCompanyName);
-  const [stateEducationId, setStateEducationId] = useState<string>(defaultStateEducationId);
-  const [stateSalaryId, setStateSalaryId] = useState<string>(defaultStateSalaryId);
-
-  return {
-    companyName,
-    stateEducationId,
-    stateSalaryId,
-    setCompanyName,
-    setStateEducationId,
-    setStateSalaryId,
-  };
-});
 
 export default function JobList() {
   const jobListRef = useRef<HTMLDivElement>(null);
