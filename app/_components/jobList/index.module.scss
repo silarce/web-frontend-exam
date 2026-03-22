@@ -35,13 +35,17 @@
 }
 
 .title {
-  > * {
-    display: inline-block;
-  }
+  // > * {
+  //   display: inline-block;
+  // }
+  display: flex;
+  gap: 12px;
+  align-items: center;
+
   > div {
     width: 4px;
     height: 16px;
-    margin-right: 12px;
+    // margin-right: 12px;
     background: var(--color-theme-info);
     border-radius: 100px;
   }
