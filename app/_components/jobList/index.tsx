@@ -46,10 +46,12 @@ export default function JobList() {
 
   const router = useRouter();
   const searchParams = useSearchParams();
+
   const page = (searchParams.get('page') as `${number}`) ?? '1';
   const companyNameQs = searchParams.get('companyName') || undefined;
   const stateEducationIdQs = Number(searchParams.get('stateEducationId'));
   const stateSalaryIdQs = Number(searchParams.get('stateSalaryId'));
+  const infoIdQs = searchParams.get('infoId') || undefined;
 
   const { data: educationList } = useApiGetEducationLevelList();
   const { data: salaryList } = useApiGetSalaryLevelList();
@@ -100,6 +102,24 @@ export default function JobList() {
       stateEducationId,
       stateSalaryId,
     }).toString();
+    router.replace(`/?${qs}`, {
+      scroll: false,
+    });
+  };
+
+  const handleOpenInfo = (infoId: string) => {
+    const q = new URLSearchParams(searchParams);
+    q.set('infoId', infoId);
+    const qs = q.toString();
+    router.replace(`/?${qs}`, {
+      scroll: false,
+    });
+  };
+
+  const handleCloseInfo = () => {
+    const q = new URLSearchParams(searchParams);
+    q.delete('infoId');
+    const qs = q.toString();
     router.replace(`/?${qs}`, {
       scroll: false,
     });
@@ -176,6 +196,9 @@ export default function JobList() {
             education={job.education}
             salary={job.salary}
             preview={job.preview}
+            onInfoClick={() => {
+              handleOpenInfo(job.id);
+            }}
           />
         ))}
       </div>
@@ -205,7 +228,10 @@ export default function JobList() {
           size={60}
         />
       </Backdrop>
-      <JobInfo />
+      <JobInfo
+        id={infoIdQs}
+        onClose={handleCloseInfo}
+      />
     </div>
   );
 }
