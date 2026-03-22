@@ -125,8 +125,8 @@ export default function JobList() {
     const qs = new URLSearchParams({
       page: '1',
       companyName,
-      stateEducationId,
-      stateSalaryId,
+      stateEducationId: stateEducationId === 'null' ? '' : stateEducationId,
+      stateSalaryId: stateSalaryId === 'null' ? '' : stateSalaryId,
     }).toString();
     router.replace(`/?${qs}`, {
       scroll: false,
