@@ -1,0 +1,12 @@
+@use "@/css/typography" as typo;
+
+.wrapper {
+  width: 270px;
+  color: var(--color-theme-desc);
+  @include typo.body-3-regular;
+}
+
+.label {
+  color: var(--color-theme-desc);
+  // @include typo.body-1-regular;
+}

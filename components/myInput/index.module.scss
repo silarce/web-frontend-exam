@@ -1,0 +1,12 @@
+@use "@/css/typography" as typo;
+
+.input {
+  input {
+    @include typo.body-3-regular;
+    color: var(--color-theme-desc);
+  }
+  label {
+    // @include typo.body-1-regular;
+    color: var(--color-theme-desc);
+  }
+}
