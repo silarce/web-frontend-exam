@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Modal from '@mui/material/Modal';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
@@ -17,6 +18,8 @@ export default function JobInfo(
 
 ) {
   const { job } = useApiGetJobById({ id });
+
+  const [zoomUrl, setZoomUrl] = useState<string | null>(null);
 
   return (
 
@@ -54,11 +57,14 @@ export default function JobInfo(
                   className={scss.swiperSlide}
                 >
                   <Image
+                    className={scss.image}
                     src={url}
                     alt={url}
-                    width="250"
-                    height="150"
-                    // fill
+                    width={250}
+                    height={150}
+                    onClick={() => {
+                      setZoomUrl(url);
+                    }}
                   />
                 </SwiperSlide>
               ))}
@@ -81,6 +87,24 @@ export default function JobInfo(
             關閉
           </button>
         </div>
+
+        <Modal open={!!zoomUrl} onClose={() => setZoomUrl(null)}>
+          <div>
+            {zoomUrl
+            && (
+            <Image
+              className={scss.bigImage}
+              src={zoomUrl}
+              alt={zoomUrl}
+              width={250}
+              height={150}
+              // 加了unoptimized才可以在新分頁開啟圖片
+              // 但是取得的圖卻跟原本不一樣了
+              // unoptimized
+            />
+            )}
+          </div>
+        </Modal>
 
       </div>
     </Modal>

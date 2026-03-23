@@ -3,7 +3,7 @@
 import { useRef, useEffect, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import useMediaQuery from '@mui/material/useMediaQuery';
+import useMediaQueryLg from '@/hook/useMediaQueryLg';
 
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -29,7 +29,7 @@ export default function JobList() {
   const jobListRef = useRef<HTMLDivElement>(null);
   const isFirstFetchSuccess = useRef(false);
 
-  const RWDMatches = useMediaQuery('(min-width:1024px)');
+  const RWDMatches = useMediaQueryLg();
 
   const router = useRouter();
   const searchParams = useSearchParams();
