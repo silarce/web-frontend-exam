@@ -95,6 +95,15 @@ export default function JobList() {
     return options;
   }, [salaryList]);
 
+  const handleTurnPage = (newPage: number) => {
+    const q = new URLSearchParams(searchParams);
+    q.set('page', `${newPage}`);
+    const qs = q.toString();
+    router.replace(`/?${qs}`, {
+      scroll: false,
+    });
+  };
+
   const handleSearch = () => {
     const qs = new URLSearchParams({
       page: '1',
@@ -226,12 +235,7 @@ export default function JobList() {
         count={Math.ceil(total / prePage)}
         page={Number(page)}
         onChange={(e, newPage) => {
-          const qs = new URLSearchParams({
-            page: `${newPage}`,
-          }).toString();
-          router.replace(`/?${qs}`, {
-            scroll: false,
-          });
+          handleTurnPage(newPage);
         }}
       />
 
