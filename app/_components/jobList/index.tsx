@@ -75,7 +75,7 @@ export default function JobList() {
   const educationOptions = useMemo(() => {
     const options = (educationList ?? [])
       .map(({ id, label }) => ({
-        value: id,
+        value: `${id}`,
         label,
       }));
 
@@ -87,7 +87,7 @@ export default function JobList() {
   const salaryOptions = useMemo(() => {
     const options = (salaryList ?? [])
       .map(({ id, label }) => ({
-        value: id,
+        value: `${id}`,
         label,
       }));
 
