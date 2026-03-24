@@ -1,8 +1,13 @@
 import { useState } from 'react';
+
+import DOMPurify from 'dompurify';
+
 import Modal from '@mui/material/Modal';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
 import Image from 'next/image';
+
+import ErrorMessage from '@/components/errorMessage';
 
 import { useApiGetJobById } from '@/apiClient/hook/useGetJobs';
 
@@ -17,22 +22,27 @@ export default function JobInfo(
   { id, onClose }:JobInfoProps,
 
 ) {
-  const { job } = useApiGetJobById({ id });
+  const { job, error } = useApiGetJobById({ id });
 
   const [zoomUrl, setZoomUrl] = useState<string | null>(null);
 
   return (
-
-    <Modal
-      open={!!id}
-      onClose={onClose}
-    >
+    <Modal open={!!id} onClose={onClose}>
       <div className={scss.container}>
 
         <div className={scss.title}>
           <span>詳細資訊</span>
         </div>
         {/*  */}
+
+        {error && (
+        <ErrorMessage>
+          {error}
+          MEOW
+        </ErrorMessage>
+        )}
+
+        {!error && (
         <div className={scss.content}>
 
           <div className={scss.jobTitle}>
@@ -73,10 +83,16 @@ export default function JobInfo(
 
           <div className={scss.desc}>
             <span>工作內容</span>
-            <div dangerouslySetInnerHTML={{ __html: job?.description ?? '' }} />
+            <div
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(job?.description ?? '') }}
+              className={scss.richText}
+            />
           </div>
 
         </div>
+
+        )}
+
         {/*  */}
         <div className={scss.footer}>
           <button

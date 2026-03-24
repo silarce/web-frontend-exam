@@ -14,6 +14,7 @@ import Pagination from '@mui/material/Pagination';
 
 import MySelect from '@/components/mySelect';
 import MyInput from '@/components/myInput';
+import ErrorMessage from '@/components/errorMessage';
 
 import { useApiGetJobs } from '@/apiClient/hook/useGetJobs';
 import { useApiGetEducationLevelList } from '@/apiClient/hook/useApiGetEducationLevelList';
@@ -49,7 +50,7 @@ export default function JobList() {
   const { data: salaryList } = useApiGetSalaryLevelList();
 
   const {
-    jobs, total, isFetching,
+    jobs, total, isFetching, error,
   } = useApiGetJobs({
     page,
     pre_page: prePage,
@@ -74,7 +75,7 @@ export default function JobList() {
   const educationOptions = useMemo(() => {
     const options = (educationList ?? [])
       .map(({ id, label }) => ({
-        value: id,
+        value: `${id}`,
         label,
       }));
 
@@ -86,7 +87,7 @@ export default function JobList() {
   const salaryOptions = useMemo(() => {
     const options = (salaryList ?? [])
       .map(({ id, label }) => ({
-        value: id,
+        value: `${id}`,
         label,
       }));
 
@@ -94,6 +95,15 @@ export default function JobList() {
 
     return options;
   }, [salaryList]);
+
+  const handleTurnPage = (newPage: number) => {
+    const q = new URLSearchParams(searchParams);
+    q.set('page', `${newPage}`);
+    const qs = q.toString();
+    router.replace(`/?${qs}`, {
+      scroll: false,
+    });
+  };
 
   const handleSearch = () => {
     const qs = new URLSearchParams({
@@ -125,6 +135,8 @@ export default function JobList() {
     });
   };
 
+  // 避免一進入page取得第一筆就滾動到list
+  // 在rwd lg時無效
   useEffect(() => {
     if (!isFirstFetchSuccess.current && jobs.length === 0) {
       return;
@@ -205,6 +217,12 @@ export default function JobList() {
       </form>
       )}
 
+      {error && (
+        <ErrorMessage>
+          {error}
+        </ErrorMessage>
+      )}
+
       <div className={scss.list}>
         {jobs.map((job) => (
           <Card
@@ -226,12 +244,7 @@ export default function JobList() {
         count={Math.ceil(total / prePage)}
         page={Number(page)}
         onChange={(e, newPage) => {
-          const qs = new URLSearchParams({
-            page: `${newPage}`,
-          }).toString();
-          router.replace(`/?${qs}`, {
-            scroll: false,
-          });
+          handleTurnPage(newPage);
         }}
       />
 

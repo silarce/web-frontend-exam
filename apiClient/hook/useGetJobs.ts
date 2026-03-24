@@ -107,7 +107,7 @@ const useApiGetJobById = ({ id }:{ id:string | undefined }) => {
   return {
     job: data,
     isFetching,
-    error,
+    error: error ? '取得職缺資料失敗' : null,
   };
 };
 

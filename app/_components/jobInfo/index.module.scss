@@ -1,6 +1,63 @@
 @use "@/css/typography" as typo;
 @use "@/css/breakpoints" as bp;
 
+@mixin richTextStyle {
+  // 段落
+  p {
+    @include typo.body-3-regular; // 16px
+    margin-bottom: 8px;
+  }
+
+  // 標題階層
+  h1 {
+    @include typo.body-6-bold; // 28px
+    margin-bottom: 12px;
+  }
+  h2 {
+    @include typo.body-5-bold; // 24px
+    margin-bottom: 10px;
+  }
+  h3 {
+    @include typo.body-4-bold; // 20px
+    margin-bottom: 8px;
+  }
+  h4 {
+    @include typo.body-3-bold; // 16px
+    margin-bottom: 6px;
+  }
+  h5 {
+    @include typo.body-2-bold; // 14px
+    margin-bottom: 4px;
+  }
+  h6 {
+    @include typo.body-1-bold; // 12px
+    margin-bottom: 4px;
+  }
+
+  // 清單
+  ul,
+  ol {
+    @include typo.body-3-regular; // 16px
+    padding-left: 20px;
+    margin-bottom: 8px;
+  }
+
+  // 強調
+  strong,
+  b {
+    font-weight: 700;
+  }
+  em,
+  i {
+    font-style: italic;
+  }
+
+  // 小字備註
+  small {
+    @include typo.body-1-regular; // 12px
+  }
+}
+
 .container {
   position: absolute;
   top: 50%;
@@ -17,9 +74,10 @@
 
   background-color: var(--color-theme-bg);
 
-  box-shadow: 0px 11px 15px -7px #00000033;
-  box-shadow: 0px 24px 38px 3px #00000024;
-  box-shadow: 0px 9px 46px 8px #0000001f;
+  box-shadow:
+    0px 11px 15px -7px #00000033,
+    0px 24px 38px 3px #00000024,
+    0px 9px 46px 8px #0000001f;
 
   border-radius: 8px;
   outline: none;
@@ -86,6 +144,10 @@
       display: inline-block;
       margin-bottom: 8px;
     }
+    .richText {
+      @include richTextStyle;
+    }
+
     @include bp.lg {
       > span {
         @include typo.body-4-bold;

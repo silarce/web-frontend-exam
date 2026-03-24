@@ -17,6 +17,7 @@ import scss from './index.module.scss';
 // YAGNI 這兩個變數先不抽出去
 const standardWidth = 1440;
 const MAX_RADIUS = 5;
+const RIGHT_EYE_DEG = -11.93; // 右眼的旋轉角度
 
 export default function HeroImage() {
   const refHeroImage = useRef<HTMLDivElement>(null);
@@ -33,7 +34,7 @@ export default function HeroImage() {
     const scaledMaxRadius = MAX_RADIUS * (heroImageWidth / standardWidth);
 
     [refLeftEye, refRightEye].forEach((refEye) => {
-      if (!refEye.current) {
+      if (!refEye.current) { // 這裡的判斷是為了滿足 TypeScript 的類型保護
         return;
       }
 
@@ -52,8 +53,8 @@ export default function HeroImage() {
       });
 
       const clampedY = Math.min(0, y); // 最小Y最標為0，讓眼睛不會往下移動
-
-      eyeEle.style.transform = `translate(${x}px, ${clampedY}px)`;
+      const deg = refEye === refRightEye ? RIGHT_EYE_DEG : 0;
+      eyeEle.style.transform = `translate(${x}px, ${clampedY}px) rotate(${deg}deg)`;
     });
   };
 
@@ -73,7 +74,7 @@ export default function HeroImage() {
       refLeftEye.current.style.transform = 'unset';
     }
     if (refRightEye.current) {
-      refRightEye.current.style.transform = 'unset';
+      refRightEye.current.style.transform = `rotate(${RIGHT_EYE_DEG}deg)`;
     }
   };
 

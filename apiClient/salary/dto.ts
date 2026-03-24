@@ -1,5 +1,5 @@
 type SalaryDto = {
-  id:string;
+  id:number;
   label:string;
 };
 
