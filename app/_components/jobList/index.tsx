@@ -217,7 +217,7 @@ export default function JobList() {
       </form>
       )}
 
-      {true && (
+      {error && (
         <ErrorMessage>
           {error}
         </ErrorMessage>
