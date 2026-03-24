@@ -73,7 +73,10 @@ export default function JobInfo(
 
           <div className={scss.desc}>
             <span>工作內容</span>
-            <div dangerouslySetInnerHTML={{ __html: job?.description ?? '' }} />
+            <div
+              dangerouslySetInnerHTML={{ __html: job?.description ?? '' }}
+              className={scss.richText}
+            />
           </div>
 
         </div>
