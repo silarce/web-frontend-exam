@@ -1,7 +1,7 @@
 @use "@/css/typography" as typo;
 @use "@/css/breakpoints" as bp;
 
-@mixin richTestStyle {
+@mixin richTextStyle {
   // 段落
   p {
     @include typo.body-3-regular; // 16px
@@ -145,7 +145,7 @@
       margin-bottom: 8px;
     }
     .richText {
-      @include richTestStyle;
+      @include richTextStyle;
     }
 
     @include bp.lg {
