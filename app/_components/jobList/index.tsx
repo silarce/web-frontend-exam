@@ -14,6 +14,7 @@ import Pagination from '@mui/material/Pagination';
 
 import MySelect from '@/components/mySelect';
 import MyInput from '@/components/myInput';
+import ErrorMessage from '@/components/errorMessage';
 
 import { useApiGetJobs } from '@/apiClient/hook/useGetJobs';
 import { useApiGetEducationLevelList } from '@/apiClient/hook/useApiGetEducationLevelList';
@@ -49,7 +50,7 @@ export default function JobList() {
   const { data: salaryList } = useApiGetSalaryLevelList();
 
   const {
-    jobs, total, isFetching,
+    jobs, total, isFetching, error,
   } = useApiGetJobs({
     page,
     pre_page: prePage,
@@ -214,6 +215,12 @@ export default function JobList() {
           條件搜尋
         </Button>
       </form>
+      )}
+
+      {true && (
+        <ErrorMessage>
+          {error}
+        </ErrorMessage>
       )}
 
       <div className={scss.list}>
