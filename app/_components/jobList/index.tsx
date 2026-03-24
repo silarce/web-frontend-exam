@@ -134,6 +134,8 @@ export default function JobList() {
     });
   };
 
+  // 避免一進入page取得第一筆就滾動到list
+  // 在rwd lg時無效
   useEffect(() => {
     if (!isFirstFetchSuccess.current && jobs.length === 0) {
       return;
