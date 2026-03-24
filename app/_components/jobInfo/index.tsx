@@ -1,4 +1,7 @@
 import { useState } from 'react';
+
+import DOMPurify from 'dompurify';
+
 import Modal from '@mui/material/Modal';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
@@ -74,7 +77,7 @@ export default function JobInfo(
           <div className={scss.desc}>
             <span>工作內容</span>
             <div
-              dangerouslySetInnerHTML={{ __html: job?.description ?? '' }}
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(job?.description ?? '') }}
               className={scss.richText}
             />
           </div>
