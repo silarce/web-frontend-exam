@@ -1,0 +1,6 @@
+@use "@/css/typography" as typo;
+
+.errorMessage {
+  text-align: center;
+  @include typo.body-8-bold;
+}
