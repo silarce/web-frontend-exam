@@ -17,7 +17,7 @@ import scss from './index.module.scss';
 // YAGNI 這兩個變數先不抽出去
 const standardWidth = 1440;
 const MAX_RADIUS = 5;
-const RIGHT_EYE_DEG = 11.93; // 右眼的旋轉角度
+const RIGHT_EYE_DEG = -11.93; // 右眼的旋轉角度
 
 export default function HeroImage() {
   const refHeroImage = useRef<HTMLDivElement>(null);
